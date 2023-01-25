@@ -1,11 +1,14 @@
 package com.github.kardzhaliyski.blogwebapp.model;
 
 public class Comment {
-    public int id;
-    public int postId;
-    public String name;
-    public String email;
-    public String body;
+    private int id;
+    private int postId;
+    private String name;
+    private String email;
+    private String body;
+
+    public Comment() {
+    }
 
     public Comment(int postId, String name, String email, String body) {
         this.postId = postId;

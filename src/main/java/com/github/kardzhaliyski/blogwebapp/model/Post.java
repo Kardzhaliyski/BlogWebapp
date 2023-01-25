@@ -1,10 +1,13 @@
 package com.github.kardzhaliyski.blogwebapp.model;
 
 public class Post {
-    public int id;
-    public Integer userId;
-    public String title;
-    public String body;
+    private int id;
+    private Integer userId;
+    private String title;
+    private String body;
+
+    public Post() {
+    }
 
     public Post(int user_id, String title, String body) {
         this.userId = user_id;
