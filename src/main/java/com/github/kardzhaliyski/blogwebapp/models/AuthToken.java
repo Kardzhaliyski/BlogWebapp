@@ -1,4 +1,4 @@
-package com.github.kardzhaliyski.blogwebapp.model;
+package com.github.kardzhaliyski.blogwebapp.models;
 
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;

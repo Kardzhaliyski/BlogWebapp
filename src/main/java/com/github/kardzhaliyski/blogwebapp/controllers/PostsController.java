@@ -1,74 +1,70 @@
 package com.github.kardzhaliyski.blogwebapp.controllers;
 
-import com.github.kardzhaliyski.blogwebapp.dao.Dao;
-import com.github.kardzhaliyski.blogwebapp.model.Post;
-import jakarta.servlet.http.HttpServletRequest;
+import com.github.kardzhaliyski.blogwebapp.mappers.CommentMapper;
+import com.github.kardzhaliyski.blogwebapp.mappers.PostMapper;
+import com.github.kardzhaliyski.blogwebapp.models.Comment;
+import com.github.kardzhaliyski.blogwebapp.models.Post;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
-import org.springframework.web.servlet.view.RedirectView;
 
-import java.util.List;
-
-import static jakarta.servlet.http.HttpServletResponse.SC_BAD_REQUEST;
+import static org.springframework.http.HttpStatus.*;
 
 @RestController
 @RequestMapping("/posts")
 public class PostsController {
 
-    Dao dao;
-
-    public PostsController(Dao dao) {
-        this.dao = dao;
+    private PostMapper postMapper;
+    private CommentMapper commentMapper;
+    public PostsController(PostMapper postMapper, CommentMapper commentMapper) {
+        this.postMapper = postMapper;
+        this.commentMapper = commentMapper;
     }
 
     @GetMapping({"/", ""})
     public Post[] getPosts() {
-        return dao.getAllPosts();
+        return postMapper.getAllPosts();
     }
 
     @GetMapping("/{postId}")
     public Post getPost(@PathVariable int postId) {
-        Post post = dao.getPostById(postId);
+        Post post = postMapper.getPostById(postId);
         if (post == null) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+            throw new ResponseStatusException(NOT_FOUND);
         }
 
         return post;
     }
 
     @GetMapping("/{postId}/comments")
-    public void getCommentsForPost(@PathVariable int postId, HttpServletRequest request) {
-//        request.getRequestDispatcher("/comments?postId=" + postId).forward();
-        //todo
+    public Comment[] getCommentsForPost(@PathVariable int postId) {
+        return commentMapper.getAllCommentsForPost(postId);
     }
 
     @DeleteMapping("/{postId}")
     public void deletePost(int postId) {
-        dao.deletePostById(postId);
+        postMapper.deleteById(postId);
     }
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping({"/", ""})
     public Post addPost(@RequestBody Post post) {
-        if (post.getTitle() == null || post.getBody() == null || post.getUserId() == 0) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid data!");
+        if (post.title == null || post.body == null || post.userId == 0) {
+            throw new ResponseStatusException(BAD_REQUEST, "Invalid data!");
         }
 
-        dao.addPost(post);
+        postMapper.addPost(post);
         return post;
     }
 
     @PutMapping({"/{postId}"})
     public Post updatePost(@PathVariable int postId, @RequestBody Post post) {
-        if(!dao.containsPost(postId)) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid userId");
+        if(!postMapper.contains(postId)) {
+            throw new ResponseStatusException(BAD_REQUEST, "Invalid userId");
         }
 
-        post.setId(postId);
-        dao.updatePost(post);
+        post.id = postId;
+        postMapper.updatePost(post);
         return post;
     }
-
 }

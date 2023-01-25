@@ -1,4 +1,4 @@
-package com.github.kardzhaliyski.blogwebapp.model;
+package com.github.kardzhaliyski.blogwebapp.models;
 
 public class Comment {
     private int id;

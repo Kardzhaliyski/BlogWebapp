@@ -1,7 +1,7 @@
-package com.github.kardzhaliyski.blogwebapp.service;
+package com.github.kardzhaliyski.blogwebapp.services;
 
-import com.github.kardzhaliyski.blogwebapp.dao.TokenDao;
-import com.github.kardzhaliyski.blogwebapp.model.AuthToken;
+import com.github.kardzhaliyski.blogwebapp.mappers.AuthTokenMapper;
+import com.github.kardzhaliyski.blogwebapp.models.AuthToken;
 import org.apache.commons.codec.digest.DigestUtils;
 
 import java.util.HashMap;
@@ -11,22 +11,15 @@ import java.util.Random;
 public class AuthenticationService {
 
     public static AuthenticationService instance = null;
-    private final TokenDao dao;
+    private final AuthTokenMapper tokenMapper;
     private final Random random;
     private Map<String, AuthToken> tokenMap = new HashMap<>();
 
-    public static AuthenticationService getInstance() {
-        if(instance == null) {
-            instance = new AuthenticationService();
-        }
 
-        return instance;
-    }
-
-    private AuthenticationService() {
+    private AuthenticationService(AuthTokenMapper tokenMapper) {
         this.tokenMap = new HashMap<>();
-        this.dao = new TokenDao();
         this.random = new Random();
+        this.tokenMapper = tokenMapper;
     }
 
     public boolean isValid(String token) {
@@ -34,7 +27,7 @@ public class AuthenticationService {
             return true;
         }
 
-        AuthToken authToken = dao.getToken(token);
+        AuthToken authToken = tokenMapper.getBy(token);
         if (authToken == null) {
             return false;
         }
@@ -47,7 +40,7 @@ public class AuthenticationService {
         int salt = random.nextInt();
         String token = DigestUtils.sha1Hex(username + "$" + salt);
         AuthToken authToken = new AuthToken(username, token);
-        dao.addToken(authToken);
+        tokenMapper.addToken(authToken);
         tokenMap.put(token, authToken);
         return token;
     }

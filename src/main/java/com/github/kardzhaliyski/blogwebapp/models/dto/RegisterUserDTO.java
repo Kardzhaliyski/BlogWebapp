@@ -1,4 +1,4 @@
-package com.github.kardzhaliyski.blogwebapp.model.dto;
+package com.github.kardzhaliyski.blogwebapp.models.dto;
 
 public class RegisterUserDTO {
     public String uname;

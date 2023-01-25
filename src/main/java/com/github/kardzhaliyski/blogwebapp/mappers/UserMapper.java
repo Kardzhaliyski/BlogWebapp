@@ -1,6 +1,6 @@
-package com.github.kardzhaliyski.blogwebapp.dao.mapper;
+package com.github.kardzhaliyski.blogwebapp.mappers;
 
-import com.github.kardzhaliyski.blogwebapp.model.User;
+import com.github.kardzhaliyski.blogwebapp.models.User;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;

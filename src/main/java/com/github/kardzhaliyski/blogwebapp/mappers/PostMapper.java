@@ -1,6 +1,6 @@
-package com.github.kardzhaliyski.blogwebapp.dao.mapper;
+package com.github.kardzhaliyski.blogwebapp.mappers;
 
-import com.github.kardzhaliyski.blogwebapp.model.Post;
+import com.github.kardzhaliyski.blogwebapp.models.Post;
 import org.apache.ibatis.annotations.*;
 
 @Mapper
@@ -11,7 +11,6 @@ public interface PostMapper {
 
     @Select("SELECT * FROM posts")
     public Post[] getAllPosts();
-
 
     @Insert("INSERT INTO posts(user_id, title, body) VALUES (#{userId}, #{title}, #{body})")
     @Options(useGeneratedKeys = true, keyColumn = "id", keyProperty = "id")
