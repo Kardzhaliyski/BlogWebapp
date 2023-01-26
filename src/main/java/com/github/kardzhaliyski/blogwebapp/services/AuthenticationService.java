@@ -3,6 +3,7 @@ package com.github.kardzhaliyski.blogwebapp.services;
 import com.github.kardzhaliyski.blogwebapp.mappers.AuthTokenMapper;
 import com.github.kardzhaliyski.blogwebapp.models.AuthToken;
 import org.apache.commons.codec.digest.DigestUtils;
+import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
 import java.util.Map;
