@@ -2,8 +2,8 @@ package com.github.kardzhaliyski.blogwebapp.controllers;
 
 import com.github.kardzhaliyski.blogwebapp.mappers.UserMapper;
 import com.github.kardzhaliyski.blogwebapp.models.User;
-import com.github.kardzhaliyski.blogwebapp.models.dto.LoginUserDTO;
 import com.github.kardzhaliyski.blogwebapp.models.dto.RegisterUserDTO;
+import com.github.kardzhaliyski.blogwebapp.services.UserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
@@ -11,18 +11,18 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.util.Optional;
 
-import static jakarta.servlet.http.HttpServletResponse.SC_CONFLICT;
-
 @RestController
 @RequestMapping("/auth")
 public class AuthController {
 
-    UserMapper userMapper;
-    PasswordEncoder passwordEncoder;
+    private final UserMapper userMapper;
+    private final PasswordEncoder passwordEncoder;
+    private final UserService userService;
 
-    public AuthController(UserMapper userMapper, PasswordEncoder passwordEncoder) {
+    public AuthController(UserMapper userMapper, PasswordEncoder passwordEncoder, UserService userService) {
         this.userMapper = userMapper;
         this.passwordEncoder = passwordEncoder;
+        this.userService = userService;
     }
 
 //    @GetMapping("/login")
@@ -41,7 +41,8 @@ public class AuthController {
     }
 
     @PostMapping("/register")
-    public String register(@RequestBody RegisterUserDTO userDto) {
+    @ResponseStatus(HttpStatus.CREATED)
+    public void register(@RequestBody RegisterUserDTO userDto) {
         if (!userDto.isValid()) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
         }
@@ -51,10 +52,6 @@ public class AuthController {
             throw new ResponseStatusException(HttpStatus.CONFLICT, "User with this username already exists!");
         }
 
-        String password = passwordEncoder.encode(userDto.psw);
-        User user = new User(userDto.uname, userDto.fName, userDto.lName, userDto.email, password);
-        userMapper.insert(user);
-
-        return "Successful registration";
+        userService.registerUser(userDto);
     }
 }
