@@ -6,5 +6,15 @@ public class User {
     public String lastName;
     public String email;
     public String password;
-    public String salt;
+
+    public User() {
+    }
+
+    public User(String username, String firstName, String lastName, String email, String password) {
+        this.username = username;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.password = password;
+    }
 }

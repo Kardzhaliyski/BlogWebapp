@@ -5,12 +5,14 @@ import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 
+import java.util.Optional;
+
 @Mapper
 public interface UserMapper {
 
     @Select("SELECT * FROM users WHERE username = #{username}")
-    User getByUsername(String username);
+    Optional<User> getByUsername(String username);
 
-    @Insert("INSERT INTO users(username, first_name, last_name, email, password, salt) VALUES (#{username}, #{firstName}, #{lastName}, #{email}, #{password}, #{salt})")
+    @Insert("INSERT INTO users(username, first_name, last_name, email, password) VALUES (#{username}, #{firstName}, #{lastName}, #{email}, #{password})")
     void insert(User user);
 }
