@@ -26,14 +26,9 @@ public class SecurityConfiguration {
                 .authorizeHttpRequests()
                 .requestMatchers(HttpMethod.POST,"/auth/register").permitAll()
                 .requestMatchers("/auth/**").permitAll()
-                .anyRequest().authenticated();
-//                .and()
-//                .logout()
-//                .logoutUrl("/auth/logout")
-//                .invalidateHttpSession(true)
-//                .deleteCookies("JSESSIONID")
-//                .and()
-//                .httpBasic();
+                .anyRequest().authenticated()
+                .and()
+                .httpBasic();
 
         return httpSecurity.build();
     }
