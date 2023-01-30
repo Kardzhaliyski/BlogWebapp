@@ -35,4 +35,5 @@ public class SecurityConfiguration {
     public UserDetailsService userDetailsService(UserMapper mapper) {
         return new AppUserDetailsService(mapper);
     }
+
 }

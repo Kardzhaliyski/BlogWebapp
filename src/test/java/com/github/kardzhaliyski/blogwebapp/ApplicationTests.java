@@ -1,6 +1,8 @@
 package com.github.kardzhaliyski.blogwebapp;
 
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
@@ -8,10 +10,6 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 @SpringBootTest
 class ApplicationTests {
-
-    @Test
-    void contextLoads() {
-    }
 
     @Test
     void testPasswordEncoder() {
@@ -22,11 +20,6 @@ class ApplicationTests {
         System.out.println(p2);
         assertNotEquals(p1, p2);
         System.out.println(e.matches("hello", p1));
-    }
-
-    @Test
-    void test(){
-
     }
 
 }
