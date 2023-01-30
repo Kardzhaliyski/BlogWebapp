@@ -2,11 +2,9 @@ package com.github.kardzhaliyski.blogwebapp.controllers;
 
 import com.github.kardzhaliyski.blogwebapp.mappers.UserMapper;
 import com.github.kardzhaliyski.blogwebapp.models.User;
-import com.github.kardzhaliyski.blogwebapp.models.dto.LoginUserDTO;
 import com.github.kardzhaliyski.blogwebapp.models.dto.RegisterUserDTO;
 import com.github.kardzhaliyski.blogwebapp.services.UserService;
 import org.springframework.http.HttpStatus;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -17,12 +15,10 @@ import java.util.Optional;
 public class AuthController {
 
     private final UserMapper userMapper;
-    private final PasswordEncoder passwordEncoder;
     private final UserService userService;
 
-    public AuthController(UserMapper userMapper, PasswordEncoder passwordEncoder, UserService userService) {
+    public AuthController(UserMapper userMapper, UserService userService) {
         this.userMapper = userMapper;
-        this.passwordEncoder = passwordEncoder;
         this.userService = userService;
     }
 

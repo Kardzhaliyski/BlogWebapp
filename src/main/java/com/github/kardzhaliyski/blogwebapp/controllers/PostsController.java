@@ -3,6 +3,7 @@ package com.github.kardzhaliyski.blogwebapp.controllers;
 import com.github.kardzhaliyski.blogwebapp.models.Comment;
 import com.github.kardzhaliyski.blogwebapp.models.Post;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -22,7 +23,7 @@ public interface PostsController {
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping({"/", ""})
-    public Post addPost(@RequestBody Post post);
+    public ResponseEntity addPost(@RequestBody Post post);
 
     @PutMapping(value = {"/{postId}"})
     public Post updatePost(@PathVariable int postId, @RequestBody Post post);

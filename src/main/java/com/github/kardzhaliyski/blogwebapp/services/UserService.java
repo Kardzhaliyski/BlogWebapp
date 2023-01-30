@@ -11,6 +11,12 @@ public class UserService {
 
     private PasswordEncoder passwordEncoder;
     private UserMapper userMapper;
+
+    public UserService(PasswordEncoder passwordEncoder, UserMapper userMapper) {
+        this.passwordEncoder = passwordEncoder;
+        this.userMapper = userMapper;
+    }
+
     public void registerUser(RegisterUserDTO userDto) {
         String password = passwordEncoder.encode(userDto.psw);
         User user = new User(userDto.uname, userDto.fName, userDto.lName, userDto.email, password);

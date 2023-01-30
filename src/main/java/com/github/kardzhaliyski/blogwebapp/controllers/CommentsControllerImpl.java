@@ -3,7 +3,6 @@ package com.github.kardzhaliyski.blogwebapp.controllers;
 import com.github.kardzhaliyski.blogwebapp.mappers.CommentMapper;
 import com.github.kardzhaliyski.blogwebapp.models.Comment;
 import org.springframework.stereotype.Component;
-import org.springframework.web.bind.annotation.RequestParam;
 
 @Component
 public class CommentsControllerImpl implements CommentsController {
@@ -21,7 +20,7 @@ public class CommentsControllerImpl implements CommentsController {
     }
 
     @Override
-    public Comment[] getComment(@RequestParam("postId") int postId) {
+    public Comment[] getComment( int postId) {
         return commentMapper.getAllCommentsForPost(postId);
     }
 

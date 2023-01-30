@@ -24,4 +24,9 @@ class ApplicationTests {
         System.out.println(e.matches("hello", p1));
     }
 
+    @Test
+    void test(){
+
+    }
+
 }
