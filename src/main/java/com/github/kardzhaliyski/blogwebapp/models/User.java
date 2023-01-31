@@ -6,6 +6,8 @@ public class User {
     public String lastName;
     public String email;
     public String password;
+    public UserRole role;
+    public boolean active;
 
     public User() {
     }
@@ -16,5 +18,7 @@ public class User {
         this.lastName = lastName;
         this.email = email;
         this.password = password;
+        this.role = UserRole.USER;
+        this.active = true;
     }
 }
